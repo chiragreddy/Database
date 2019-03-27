@@ -1,0 +1,159 @@
+Assignment - 8
+
+a) Select ENAME from Emp where JOB = 'C' OR 'A';
+
+b) Select * from emp Where HireDate < '81-9-30';
+
+c) select ename from emp  where job != 'M';
+
+d) select ename from emp  where empno IN (7369, 7521, 7839, 7934, 7788);
+
+e) select ename from emp where deptno NOT IN (30,40,10);
+
+f) select ename from emp where hiredate >= '81-6-30' AND hiredate <= '81-12-31';
+
+g) select DISTINCT JOB from emp;
+
+h) SELECT ENAME FROM EMP where COMM = 0 OR COMM IS NULL;
+
+i) SELECT ENAME,JOB FROM EMP where MGR IS NULL;
+
+j) SELECT ENAME FROM EMP WHERE DEPTNO IS NULL; 
+
+k) SELECT ENAME FROM EMP WHERE COMM IS NOT NULL;
+
+l) SELECT ENAME FROM EMP WHERE ENAME LIKE 's%' OR ENAME LIKE '%s';
+
+m) SELECT ENAME FROM EMP WHERE ENAME LIKE '_i%';
+
+n) SELECT COUNT(Ename) AS Number_of_employees from emp;
+
+o) SELECT COUNT(DISTINCT job) AS Number_of_designations from emp;
+
+p) SELECT SUM(SAL) AS Total_Salary FROM emp;
+
+q) Select MAX(SAL) AS max_salary, MIN(SAL) AS min_salary, AVG(SAL) AS avg_salary from emp;
+
+r) Select MAX(SAL) AS max_salary from emp where job ='S';
+
+Assignment - 9
+
+select ename from emp where deptno NOT IN (30,40,10);
+
+Assignment - 10
+
+Select ename, avg(sal), job from emp where deptno = 20 group by job having avg(sal) > 1000 order by job;
+
+Assignment - 11
+
+a) Select count(ename) AS number_of_employees, avg(SAL) as avg_salary from emp where dept_no = 20;
+
+b) Select ename, sal, 0.1*SAL as PF from emp;
+
+c) Select ename, datediff(sysdate(),hiredate)/365 AS age from emp; 
+
+d) Select * from emp order by sal ASC;
+
+e) Select ename, hiredate from emp 
+	order by hiredate DESC;
+
+f) Select ename, sal, 0.1*sal AS PF, 0.5*sal AS HRA, 0.3*sal AS DA, (sal + 0.1*sal + 0.5 *sal + 0.3*sal) as gross from emp 
+    order by (sal + 0.1*sal + 0.5 *sal + 0.3*sal) ASC;
+    
+g) select deptno, count(ename) from emp 
+    group by deptno; 
+
+h) select deptno, sum(sal) from emp 
+    group by deptno; 
+    
+i) select job, count(ename) AS number_of_employees from emp 
+   group by job 
+   order by count(ename) DESC;
+   
+j) select job, sum(sal), max(sal), min(sal), avg(sal) from emp 
+   group by job;
+   
+k) select job, sum(sal), max(sal), min(sal), avg(sal) from emp 
+    where deptno = 20 
+    group by job; 
+    
+l) Select ename, avg(sal), job from emp 
+   where deptno = 20 
+   group by job 
+   having avg(sal) > 1000 
+   order by job;
+
+Day - 3
+
+Assignment - 12
+
+a) Select DISTINCT TrainerName, CourseName from Trainer, Course_details, Feedback 
+
+   where Trainer.trainerID = Feedback.TrainerId  AND 
+      
+   Feedback.courseId = course_details.courseId;
+   
+b) Select trainername, count(DISTINCT coursename) AS no_of_courses from Trainer
+	
+    left Join Feedback ON 
+    
+    Feedback.Trainerid = trainer.trainerid
+    
+    left JOIN course_details ON Feedback.courseid = course_details.courseid
+    
+    group by trainername
+    
+    Having no_of_courses > 1;
+    
+c) Select t.trainerid, t.trainername,count(DISTINCT coursename) AS no_of_courses from Trainer t
+	
+    
+	left Join Feedback f ON f.Trainerid = t.trainerid
+    
+    left JOIN course_details c ON f.courseid = c.courseid
+    
+    group by t.trainerid;
+    
+d) Select t.trainerid, t.trainername,count(DISTINCT coursename), coursename AS no_of_courses from Trainer t
+	
+    left Join Feedback f ON f.Trainerid = t.trainerid
+    
+    left JOIN course_details c ON f.courseid = c.courseid
+    
+    group by t.trainerid;
+
+e) select batchname, DATEDIFF(end_date,start_date) AS duration from batch_schedule
+
+   group by batchname;
+
+f) select t.trainerid, t.trainername, t.emailID, t.phone, c.courseid,c.coursename, b.batchname from trainer t, batch_schedule b
+
+	JOIN course_details c on b.courseid = c.courseid
+   
+	where start_date > '07-02-08'
+
+	group by b.batchname, t.trainerid;
+
+g) select f.trainerid, f.batchname, count(distinct coursename) AS no_of_courses from course_details c
+
+   join feedback f ON f.courseid = c.courseid
+
+   join batch_schedule b ON b.courseid = f.courseid
+
+   group by f.batchname
+
+   having no_of_courses > 1
+   
+   order by f.trainerid ASC;
+
+h) select t.trainername, MAX(distinct coursename) AS maximum from trainer t
+
+   join feedback f ON f.trainerid = t.trainerid
+   
+   join batch_schedule b ON b.courseid = f.courseid
+   
+   join course_details c ON c.courseid = f.courseid
+   
+   group by t.trainername
+   
+   Having maximum;
